@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MovieModel extends Model
+class MultiplexModel extends Model
 {
     use HasFactory;
-
-    protected $table = "movie";
+    protected $table= 'multiplex';
 
     public function ticketPrices()
     {

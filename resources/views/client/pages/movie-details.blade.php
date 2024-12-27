@@ -14,7 +14,7 @@
                         molestiae ad eius accusantium? Nulla dolorem perferendis inventore! posuere cubilia Curae;
                         Nunc non risus in justo convallis feugiat.</p>
                     <div class="ready-more mt-4">
-                        <a href="{{route('movie.seatplan',$movie_details->id)}}" class="btn read-button">Book Tickets <span class="fa fa-angle-double-right ml-2"
+                        <a href="{{route('multiplex.select',$movie_details->id)}}" class="btn read-button">Book Tickets <span class="fa fa-angle-double-right ml-2"
                                 aria-hidden="true"></span></a>
                     </div>
                 </div>

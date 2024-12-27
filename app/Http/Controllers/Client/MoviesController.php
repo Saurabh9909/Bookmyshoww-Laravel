@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\MovieModel;
+use App\Models\TicketpriceModel;
 use Illuminate\Http\Request;
+use Illuminate\Queue\Jobs\RedisJob;
 use Illuminate\Support\Facades\Session;
 
 class MoviesController extends Controller
@@ -23,13 +25,5 @@ class MoviesController extends Controller
     {
         $all_movies = MovieModel::all();
         return view("client.pages.all_movies", compact("all_movies"));
-    }
-    public function seat_plan(Request $request)
-    {
-        $movie_details = MovieModel::where("id", $request->id)->first();
-        Session::put('movie_name', $movie_details->movie_name);
-        Session::put('movie_duration', $movie_details->movie_duration);
-        Session::put('movie_poster', $movie_details->movie_poster);
-        return view("client.pages.seat-plan");
     }
 }

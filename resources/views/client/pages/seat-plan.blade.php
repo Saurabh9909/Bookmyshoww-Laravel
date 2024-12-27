@@ -1,7 +1,8 @@
 @extends('client.layouts.client_main')
 @section('content')
     <!-- ==========Banner-Section========== -->
-    <section class="details-banner hero-area bg_img seat-plan-banner" data-background="{{ asset(session('movie_poster')) }}">
+    <section class="details-banner hero-area bg_img seat-plan-banner"
+        style="background-image: url('{{ asset(session('movie_poster')) }}')">
         <div class="container">
             <div class="details-banner-wrapper">
                 <div class="details-banner-content style-two">
@@ -13,9 +14,10 @@
                     <div class="tags">
                         <a href="#0">City Walk</a>
                         <a href="#0">
-                            @if (session('movie_duration'))
-                                {{ session('movie_duration') }}
-                            @endif
+                            <h4> <span class="post"><span class="fa fa-clock-o"> </span>
+                                    {{ substr(session('movie_duration'), 0, 2) }} Hr
+                                    {{ substr(session('movie_duration'), 3) }} Min</span>
+                            </h4>
                         </a>
                     </div>
                 </div>
@@ -25,7 +27,7 @@
     <!-- ==========Banner-Section========== -->
 
     <!-- ==========Page-Title========== -->
-    <section class="page-title bg-one">
+    {{-- <section class="page-title bg-one">
         <div class="container">
             <div class="page-title-area">
                 <div class="item md-order-1">
@@ -33,7 +35,7 @@
                         <i class="flaticon-double-right-arrows-angles"></i>back
                     </a>
                 </div>
-                {{-- <div class="item date-item">
+                <div class="item date-item">
                 <span class="date">MON, SEP 09 2020</span>
                 <select class="select-bar">
                     <option value="sc1">09:40</option>
@@ -41,14 +43,14 @@
                     <option value="sc3">15:45</option>
                     <option value="sc4">19:50</option>
                 </select>
-            </div> --}}
+            </div>
                 <div class="item">
                     <h5 class="title">05:00</h5>
                     <p>Mins Left</p>
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- ==========Page-Title========== -->
 
     <div class="seat-plan-section padding-bottom padding-top">
@@ -69,7 +71,8 @@
                                         @for ($i = 1; $i <= 4; $i++)
                                             <li class="single-seat">
                                                 <img id="seat_g_{{ $i }}"
-                                                    src="{{ asset('assets/images/movie/seat01.png') }}" alt="seat">
+                                                    src="{{ asset('assets/images/movie/seat01.png') }}" alt="seat"
+                                                    value='G{{ $i }}'>
                                                 <span class="sit-num">G{{ $i }}</span>
                                             </li>
                                         @endfor
@@ -80,7 +83,8 @@
                                         @for ($i = 5; $i <= 10; $i++)
                                             <li class="single-seat">
                                                 <img id="seat_g_{{ $i }}"
-                                                    src="{{ asset('assets/images/movie/seat01.png') }}" alt="seat">
+                                                    src="{{ asset('assets/images/movie/seat01.png') }}" alt="seat"
+                                                    value='G{{ $i }}'>
                                                 <span class="sit-num">G{{ $i }}</span>
                                             </li>
                                         @endfor
@@ -91,7 +95,8 @@
                                         @for ($i = 11; $i <= 14; $i++)
                                             <li class="single-seat">
                                                 <img id="seat_g_{{ $i }}"
-                                                    src="{{ asset('assets/images/movie/seat01.png') }}" alt="seat">
+                                                    src="{{ asset('assets/images/movie/seat01.png') }}" alt="seat"
+                                                    value='G{{ $i }}'>
                                                 <span class="sit-num">G{{ $i }}</span>
                                             </li>
                                         @endfor
@@ -108,7 +113,8 @@
                                         @for ($i = 1; $i <= 4; $i++)
                                             <li class="single-seat">
                                                 <img id="seat_f_{{ $i }}"
-                                                    src="{{ asset('assets/images/movie/seat01.png') }}" alt="seat">
+                                                    src="{{ asset('assets/images/movie/seat01.png') }}" alt="seat"
+                                                    value='F{{ $i }}'>
                                                 <span class="sit-num">F{{ $i }}</span>
                                             </li>
                                         @endfor
@@ -119,7 +125,8 @@
                                         @for ($i = 5; $i <= 10; $i++)
                                             <li class="single-seat">
                                                 <img id="seat_f_{{ $i }}"
-                                                    src="{{ asset('assets/images/movie/seat01.png') }}" alt="seat">
+                                                    src="{{ asset('assets/images/movie/seat01.png') }}" alt="seat"
+                                                    value='F{{ $i }}'>
                                                 <span class="sit-num">F{{ $i }}</span>
                                             </li>
                                         @endfor
@@ -130,7 +137,8 @@
                                         @for ($i = 11; $i <= 14; $i++)
                                             <li class="single-seat">
                                                 <img id="seat_f_{{ $i }}"
-                                                    src="{{ asset('assets/images/movie/seat01.png') }}" alt="seat">
+                                                    src="{{ asset('assets/images/movie/seat01.png') }}" alt="seat"
+                                                    value='F{{ $i }}'>
                                                 <span class="sit-num">F{{ $i }}</span>
                                             </li>
                                         @endfor
@@ -228,6 +236,11 @@
                             </ul>
                             <span>d</span>
                         </li>
+                    </ul>
+                </div>
+                <h5 class="subtitle">silver plus</h5>
+                <div class="screen-wrapper">
+                    <ul class="seat-area">
                         <li class="seat-line">
                             <span>c</span>
                             <ul class="seat--area">
@@ -357,18 +370,20 @@
                     </ul>
                 </div>
             </div>
-            <div class="proceed-book bg_img" data-background="assets/images/banner/Popcorn.jpg">
+            <div class="proceed-book bg_img"
+                style="background-image: url('{{ asset('assets/images/banner/Popcorn.jpg') }}">
                 <div class="proceed-to-book">
+                    <input type="hidden" id="ticket_price" value="{{ $ticketprice->ticket_price ?? '' }}">
                     <div class="book-item">
                         <span>You have Choosed Seat</span>
                         <h3 class="title" id="selectedSeats">No seat selected</h3>
                     </div>
                     <div class="book-item">
                         <span>total price</span>
-                        <h3 class="title">$150</h3>
+                        <h3 class="title" id="total-price" value="{{ $ticketprice->ticket_price ?? '' }}">0</h3>
                     </div>
                     <div class="book-item">
-                        <a class="custom-button" id="proceed-button">proceed</a>
+                        <a href="javascript:void" class="custom-button" id="proceed-button">proceed</a>
                     </div>
                 </div>
             </div>
@@ -380,34 +395,50 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-
             let selectedSeats = [];
             $(".single-seat img").on("click", function() {
                 const seatId = $(this).attr("value");
                 const currentSrc = $(this).attr("src");
-                const setValue = $(this).attr('value');
+                const ticketPrice = parseFloat($("#ticket_price").val()); // Ensure it's a number
+                const total = selectedSeats.length * ticketPrice;
 
-                // Check the current image source
                 if (currentSrc === "{{ asset('assets/images/movie/seat01.png') }}") {
-                    // Change to booked image
                     $(this).attr("src", "{{ asset('assets/images/movie/seat01-booked.png') }}");
                     if (!selectedSeats.includes(seatId)) {
-                        selectedSeats.push(seatId); // Adding seat id to array
+                        selectedSeats.push(seatId); // Add seat id to array
                     }
                 } else {
-                    // Change back to available seat image
                     $(this).attr("src", "{{ asset('assets/images/movie/seat01.png') }}");
                     selectedSeats = selectedSeats.filter(id => id !== seatId);
                 }
+
                 $("#selectedSeats").text(selectedSeats.join(", "));
+                $("#total-price").text((selectedSeats.length * ticketPrice));
             });
-            $("#proceed-button").on("click", function() {
+
+            $('#proceed-button').on('click', function() {
+                if (selectedSeats.length === 0) {
+                    alert("Please select at least one seat before proceeding.");
+                    return;
+                }
+                const totalamount = parseFloat($("#total-price").text());
                 $.ajax({
-                    url: "{{ route('seatplan.seatnumber') }}", // Update with your route URL
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ route('movie.checkout') }}",
                     type: "POST",
                     data: {
                         seats: selectedSeats,
-                        _token: "{{ csrf_token() }}" // Include CSRF token for Laravel
+                        total: totalamount
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        window.location.href = response.redirect_url;
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", error);
+                        alert("An error occurred. Please try again.");
                     }
                 });
             });

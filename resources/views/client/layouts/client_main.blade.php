@@ -4,6 +4,7 @@
 <head>
     @include('client.layouts.header.header_link')
     @yield('header-link')
+    @yield('style')
 </head>
 
 <body>

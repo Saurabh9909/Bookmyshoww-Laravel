@@ -9,7 +9,7 @@ class StateModel extends Model
 {
     use HasFactory;
 
-    protected $table = "states";
+    protected $table = "state";
 
     public function country()
     {
