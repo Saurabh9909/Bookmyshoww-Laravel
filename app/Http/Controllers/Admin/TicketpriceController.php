@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\CityModel;
 use App\Models\MovieModel;
 use App\Models\MultiplexModel;
-use App\Models\StateModel;
 use App\Models\TicketpriceModel;
 use Illuminate\Http\Request;
 
@@ -26,6 +25,7 @@ class TicketpriceController extends Controller
         $ticket->movie_id = $request->movie_name;
         $ticket->movie_date = $request->movie_date;
         $ticket->save();
+        flash()->success("Ticket Price added successfully");
         return redirect()->route('ticketprice.list');
     }
     public function list()
@@ -48,6 +48,7 @@ class TicketpriceController extends Controller
         $ticket->movie_id = $request->movie_name;
         $ticket->movie_date = $request->movie_date;
         $ticket->update();
+        flash()->success("Ticket Price Updated Successfully");
         return redirect()->route('ticketprice.list');
     }
     public function delete(Request $request)

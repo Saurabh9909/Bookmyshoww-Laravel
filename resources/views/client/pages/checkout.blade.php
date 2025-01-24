@@ -2,7 +2,8 @@
 @section('content')
     <div class="event-facility padding-bottom padding-top">
         <div class="container">
-            <form class="" id="basicform" method="post" action="#">
+            <form action="{{ route('movie.bookingdetails') }}" method="post">
+                @csrf
                 <div class="row" id="showticket">
                     <div class="col-lg-8">
                         <div class="checkout-widget d-flex flex-wrap align-items-center justify-cotent-between">
@@ -17,13 +18,16 @@
                         <div class="checkout-widget checkout-contact">
                             <h5 class="title">Share your Contact Details </h5>
                             <div class="form-group">
-                                <input type="text" value="" placeholder="Full Name" name="custname">
+                                <input type="text" value="{{ session('user_name') ?? '' }}" placeholder="Full Name"
+                                    name="custname">
                             </div>
                             <div class="form-group">
-                                <input type="text" value="" placeholder="Enter your Mail" name="custemail">
+                                <input type="text" value="{{ session('user_email') ?? '' }}"
+                                    placeholder="Enter your Mail" name="custemail">
                             </div>
                             <div class="form-group">
-                                <input type="text" value="" placeholder="Enter your Phone Number " name="custmob">
+                                <input type="text" value="{{ session('phone_number') ?? '' }}"
+                                    placeholder="Enter your Phone Number " name="custmob">
                             </div>
                             <div class="form-group">
                             </div>
@@ -34,9 +38,9 @@
                             <h4 class="title">booking summary</h4>
                             <ul>
                                 <li>
-                                    <h6 class="subtitle"><span>Movie</span><span>{{ session('movie_name') }} <input
-                                                type="hidden" value="{{ session('id') }}" name="movie_name">
-                                        </span>
+                                    <h6 class="subtitle"><span>Movie</span>
+                                        <span>{{ session('movie_name') }} <input type="hidden"
+                                                value="{{ session('movie_name') }}" name="movie_name"></span>
                                     </h6>
                                 </li>
                                 <li>
@@ -47,14 +51,16 @@
                                 </li>
                                 <li>
                                     <h6 class="subtitle"><span>Multiplex</span>
-                                        <span>{{ $multiplex->multiplex_name }}</span>
-                                        <input type="hidden" value="{{ $multiplex->id }}" name="multiplex_name">
+                                        <span>{{ $multiplex->multiplex_name ?? '' }}</span>
+                                        <input type="hidden" value="{{ $multiplex->multiplex_name ?? '' }}"
+                                            name="multiplex_name">
                                     </h6>
                                 </li>
                                 <li>
                                     <h6 class="subtitle"><span>Ticket</span>
                                         <span>
                                             @foreach ($seats as $item)
+                                                <input type="hidden" value="{{ $item }}" name="seats[]">
                                                 {{ $item }}
                                             @endforeach
                                         </span>
@@ -86,6 +92,7 @@
                         <div class="proceed-area  text-center">
                             <h6 class="subtitle">
                                 <span>Amount Payable</span>
+                                <input type="hidden" name="totalamount" value="{{ $totalamount }}">
                                 <span>&#8377; {{ $totalamount }}</span>
                             </h6>
                             <input type="submit" value="Continue" class="custom-button" />

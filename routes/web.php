@@ -1,23 +1,31 @@
 <?php
 
+use App\Http\Controllers\AboutUscontroller;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BookingController;
+use App\Http\Controllers\Admin\BookingDetailsController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\MultiplexController;
+use App\Http\Controllers\Admin\ShowController;
+use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\TicketpriceController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\MoviesController;
 use App\Http\Controllers\Client\MultiplexController as ClientMultiplexController;
 use App\Http\Controllers\Client\SeatplanController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('user/dashboard', [DashboardController::class, 'user_index'])->name('dashboard')->middleware('auth');
+Route::post('user/dashboard/delete/{bookingDetailsModel}', [DashboardController::class, 'delete'])->name('user.record.delete')->middleware('auth');
 
 
 Route::middleware('auth')->group(function () {
@@ -26,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:admin')->group(function () {
     // Roles 
     Route::get('roles', [RoleController::class, 'index'])->name('role.index'); // List all roles
     Route::get('roles/create', [RoleController::class, 'create'])->name('role.create'); // Show form to create a new role
@@ -45,11 +53,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('permissions/{permission}', [RoleController::class, 'permissionDestroy'])->name('permission.destroy');
 
 
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/admin/list', [AdminController::class, 'index'])->name('admin');
-    Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->name('edit');
-    Route::post('/admin/update/{id}', [AdminController::class, 'update'])->name('update');
-    Route::post('/admin/delete/{id}', [AdminController::class, 'delete'])->name('delete');
+    Route::middleware(['role:admin'])->prefix('/admin')->group(function () {
+        Route::get('/list', [AdminController::class, 'index'])->name('admin');
+        Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [AdminController::class, 'update'])->name('update');
+        Route::post('/delete/{id}', [AdminController::class, 'delete'])->name('delete');
+    });
 
     Route::prefix('/movie')->group(function () {
         Route::get('/', [MovieController::class, 'index'])->name('movie.add');
@@ -81,12 +90,26 @@ Route::middleware('auth')->group(function () {
     // Route::get('/countries', [CountryController::class, 'countries'])->name('countries');
     Route::get('/states', [CountryController::class, 'states'])->name('states');
     Route::get('/cities/{id}', [CountryController::class, 'cities'])->name('cities');
+
+    Route::prefix('shows')->group(function () {
+        Route::get('', [ShowController::class, 'list'])->name('shows.list');
+        Route::get('create', [ShowController::class, 'add'])->name('shows.add');
+        Route::post('store', [ShowController::class, 'store'])->name('shows.store');
+        Route::get('edit/{show}', [ShowController::class, 'edit'])->name('shows.edit');
+        Route::put('update/{show}', [ShowController::class, 'update'])->name('shows.update');
+        Route::delete('delete/{show}', [ShowController::class, 'delete'])->name('shows.delete');
+    });
+
+    Route::resource('tickets', TicketController::class);
+    Route::resource('bookings', BookingController::class);
+    Route::resource('bookingdetails', BookingDetailsController::class);
 });
 
 // Client routes 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/movie-details/{id}', [MoviesController::class, 'movie_details'])->name('movie.details');
 Route::get('/categories', [MoviesController::class, 'categories'])->name('movie.categories');
+Route::get('/categories/type', [MoviesController::class, 'movie_categories'])->name('movie.categories.type');
 Route::get('/all-movies', [MoviesController::class, 'all_movies'])->name('all.movies');
 
 // Multiplex 
@@ -102,9 +125,14 @@ Route::post('/seat-plan/booking-details', [SeatplanController::class, 'index'])-
 Route::post('/movie/checkout', [CheckoutController::class, 'index'])->name('movie.checkout');
 Route::get('/movie/checkout/confirmation', [CheckoutController::class, 'confirmation'])->name('movie.confirmation');
 
+// Booking Details
+Route::post('/booking-details', [CheckoutController::class, "bookingdetails"])->name('movie.bookingdetails');
 
-Route::get('/404', function () {
-    return view('errors.404');
-});
+// About us
+Route::get('/about-us', [AboutUscontroller::class, 'index'])->name('about');
+Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact');
+Route::view('/404', 'errors.404')->name('404');
+
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/admin-auth.php';

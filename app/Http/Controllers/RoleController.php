@@ -12,7 +12,6 @@ class RoleController extends Controller
     {
         $roles = Role::with('permissions')->get();
         $permissions = Permission::all(); // Get all permissions
-
         return view('role.list', compact('roles', 'permissions'));
     }
 
@@ -24,7 +23,6 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
         $request->validate([
             'name' => 'required|string|unique:roles,name',
             'permissions' => 'array|exists:permissions,id', // Validate permissions
@@ -32,7 +30,6 @@ class RoleController extends Controller
 
         $role = Role::create(['name' => $request->name]);
         $role->syncPermissions($request->permissions); // Assign selected permissions to role
-
         return redirect()->route('role.index')->with('success', 'Role created successfully.');
     }
 

@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class TheatreModel extends Model
 {
     use HasFactory;
-    protected $table ="theatre";
+    protected $table = "multiplex";
 }

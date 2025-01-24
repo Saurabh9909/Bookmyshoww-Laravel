@@ -18,14 +18,24 @@
                 <a href="{{ route('movie.list') }}"><i class="material-icons">movie</i><span>Movie</span></a>
             </li>
             <li class="dropdown {{ Request::route()->getPrefix() == '/multiplex' ? 'active' : '' }}">
-                <a href="{{ route('multiplex.list') }}"><i class="material-icons">theaters</i><span>Multiplex</span></a>
+                <a href="{{ route('multiplex.list') }}"><i
+                        class="material-icons">theaters</i><span>Multiplex</span></a>
             </li>
             <li class="dropdown {{ Request::route()->getPrefix() == '/ticketprice' ? 'active' : '' }}">
-                <a href="{{ route('ticketprice.list') }}"><i class="material-icons">ticket</i><span>Ticket Price</span></a>
+                <a href="{{ route('ticketprice.list') }}"><i class="material-icons">attach_money</i><span>Ticket
+                        Price</span></a>
+            </li>
+            <li class="dropdown {{ Request::route()->getPrefix() == '/shows' ? 'active' : '' }}">
+                <a href="{{ route('shows.list') }}"><i class="material-icons">watch_later</i><span>Shows</span></a>
+            </li>
+            <li class="dropdown {{ Request::route()->getPrefix() == '/tickets' ? 'active' : '' }}">
+                <a href="{{ route('tickets.index') }}"><i class="material-icons"></i><span>Tickets</span></a>
+            </li>
+            <li class="dropdown {{ Request::route()->getPrefix() == '/booking' ? 'active' : '' }}">
+                <a href="{{ route('bookings.index') }}"><i class="material-icons"></i><span>Bookings</span></a>
             </li>
             <li class="dropdown">
-                <a href="{{ route('states') }}"><i
-                        data-feather="chevrons-down"></i><span>Countries</span></a>
+                <a href="{{ route('states') }}"><i data-feather="chevrons-down"></i><span>Countries</span></a>
             </li>
             <!--
          <li class="dropdown">

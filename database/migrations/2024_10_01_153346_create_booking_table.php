@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('booking', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("ticket_no")->nullable();
-            $table->date("booking_date")->nullable();
-            $table->foreign("ticket_no")->references("id")->on("tickets")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string("ticket_no")->nullable();
+            $table->string("booking_date")->nullable();
             $table->timestamps();
         });
     }

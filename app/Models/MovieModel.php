@@ -15,4 +15,9 @@ class MovieModel extends Model
     {
         return $this->hasMany(TicketpriceModel::class);
     }
+
+    public function bookingDetails()
+    {
+        return $this->hasMany(BookingDetailsModel::class, 'movie_id');
+    }
 }

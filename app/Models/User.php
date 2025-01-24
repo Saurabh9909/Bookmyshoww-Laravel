@@ -10,8 +10,9 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,HasRoles;
+    use HasFactory, Notifiable, HasRoles;
 
+    protected $guard = 'web';
     /**
      * The attributes that are mass assignable.
      *
@@ -44,5 +45,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function bookingDetails()
+    {
+        return $this->hasMany(BookingDetailsModel::class, 'user_id');
     }
 }

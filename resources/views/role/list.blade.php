@@ -16,7 +16,7 @@
                     <tr>
                         <td>{{ $role->name }}</td>
                         <td>
-                            @foreach ($role->permissions as $permission)
+                            @foreach ($permissions as $permission)
                                 <span class="badge bg-secondary">{{ $permission->name }}</span>
                             @endforeach
                         </td>

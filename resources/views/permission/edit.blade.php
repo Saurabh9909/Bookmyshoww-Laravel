@@ -3,7 +3,7 @@
 @section('content')
 <div class="main-content">
     <h1>Edit Permission: {{ $permission->name }}</h1>
-    <form action="{{ route('permissions.update', $permission) }}" method="POST">
+    <form action="{{ route('permission.update', $permission) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">

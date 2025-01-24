@@ -8,10 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class MultiplexModel extends Model
 {
     use HasFactory;
-    protected $table= 'multiplex';
+    protected $table = 'multiplex';
 
     public function ticketPrices()
     {
         return $this->hasMany(TicketpriceModel::class);
+    }
+    public function bookingDetails()
+    {
+        return $this->hasMany(BookingDetailsModel::class, 'multiplex_id');
     }
 }

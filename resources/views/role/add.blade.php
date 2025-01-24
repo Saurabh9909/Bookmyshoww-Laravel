@@ -1,4 +1,7 @@
 @extends('admin.layouts.admin_main')
+@section('header-link')
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}"> --}}
+@endsection
 @section('content')
     <div class="main-content">
         <section class="section">
@@ -19,7 +22,8 @@
                                 <label for="permissions" class="col-sm-3 col-form-label">Permissions</label>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <select name="permissions" id="permissions" class="form-control">
+                                        <select name="permissions[]" id="permissions" class="form-control select2"
+                                            multiple=''>
                                             <option>Select Permissions</option>
                                             @foreach ($permissions as $permission)
                                                 <option value="{{ $permission->id }}">{{ $permission->name }}

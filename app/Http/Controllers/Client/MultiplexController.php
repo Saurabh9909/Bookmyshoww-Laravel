@@ -19,7 +19,7 @@ class MultiplexController extends Controller
             'movie_name' => $movie_details[0]->movie_name,
             'movie_duration' => $movie_details[0]->movie_duration,
             'movie_poster' => $movie_details[0]->movie_poster,
-            'id' => $movie_details[0]->id,
+            'movie_id' => $movie_details[0]->id,
         ]);
         return view('client.pages.multiplex', compact('multiplex', 'movie_details'));
     }

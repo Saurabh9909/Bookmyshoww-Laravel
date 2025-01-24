@@ -24,7 +24,8 @@ class SeatplanController extends Controller
         $movie_details = MovieModel::where("id", $request->id)->first();
         session([
             'movie_time' => $request->movie_time,
-            'multiplex_id' => $request->multiplex_id
+            'multiplex_id' => $request->multiplex_id,
+            'movie_date'=> $request->movie_date
         ]);
         return response()->json([
             'message' => 'success',

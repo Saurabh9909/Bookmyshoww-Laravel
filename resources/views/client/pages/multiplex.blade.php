@@ -159,6 +159,16 @@
     </section>
     <!-- ==========Banner-Section========== -->
 
+    <section class="book-section bg-one">
+        <div class="container">
+            <form class="ticket-search-form two">
+                <div class="form-group">
+                    <span>Date</span>
+                    <input type="date" name="date" id="movie_date">
+                </div>
+            </form>
+        </div>
+    </section>
 
     <!-- ==========Window-Warning-Section========== -->
     <section class="window-warning inActive">
@@ -263,6 +273,11 @@
             $('.item').on('click', function() {
                 const movie_time = $(this).data('time');
                 const multiplex_id = $(this).data('multiplex');
+                const movie_date = $('#movie_date').val();
+                if (!movie_date) {
+                    alert("Please select a date before proceeding.");
+                    return;
+                }
                 $('.seatPlanButton').on('click', function() {
                     $.ajax({
                         headers: {
@@ -272,7 +287,8 @@
                         type: "POST",
                         data: {
                             movie_time: movie_time,
-                            multiplex_id: multiplex_id
+                            multiplex_id: multiplex_id,
+                            movie_date: movie_date,
                         },
                         success: function(response) {
                             console.log(response);
